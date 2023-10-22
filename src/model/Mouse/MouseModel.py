@@ -10,7 +10,7 @@ class MouseModel:
 
     def __init__(self, body: map = None):
         if body is not None:
-            self.mouseBehaviour = MousePadBehaviour(int(body.get("MMode")))
+            self.mouseBehaviour = MousePadBehaviour(int(body.get("mMode")))
             self.x = body.get("X")
             self.y = body.get("Y")
             self.action = MouseActions(int(body.get("ACTION")))
@@ -18,7 +18,7 @@ class MouseModel:
             pass
 
     def decode(self, body: map):
-        self.mouseBehaviour = MousePadBehaviour(int(body.get("MMode")))
+        self.mouseBehaviour = MousePadBehaviour(int(body.get("mMode")))
         self.x = body.get("X")
         self.y = body.get("Y")
         self.action = MouseActions(int(body.get("ACTION")))
@@ -29,6 +29,6 @@ class MouseModel:
 
 
 if __name__ == "__main__":
-    map = {"MMode": 0, "X": 100, "Y": 100, "ACTION": 1}
+    map = {"mMode": 0, "X": 100, "Y": 100, "ACTION": 1}
     model = MouseModel()
     print(model.decode(map))

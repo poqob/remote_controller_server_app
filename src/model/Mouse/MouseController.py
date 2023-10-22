@@ -3,7 +3,7 @@ from model.Mouse.MouseActions import MouseActions
 import mouse
 
 data = {
-    "MMode": "STATIC",
+    "mMode": "STATIC",
     "X": 100,
     "Y": 100,
     "ACTION": 1,
@@ -26,7 +26,7 @@ class MouseController:
             case MouseActions.DOUBLE_CLICK_RIGHT:
                 mouse.double_click(button="right")
             case MouseActions.SCROLL_DOWN:
-                mouse.wheel(delta=-1)
+                mouse.wheel(delta=-0.1)
             case MouseActions.SCROLL_UP:
                 mouse.wheel(delta=1)
             case MouseActions.MOVE:  ## static move
@@ -34,10 +34,25 @@ class MouseController:
                     mouseModel.x,
                     mouseModel.y,
                     absolute=True,
-                    duration=1,
+                    duration=0,
                 )
-            case MouseActions.DRAG:  ## later updates
+            case MouseActions.DRAG_START:  ## later updates
                 # mouse.drag(start_x, start_y, end_x, end_y, absolute=True, duration=0)
-                pass
+                if mouse.is_pressed(button="left") is False:
+                    mouse.press(button="left")
+                mouse.move(
+                    mouseModel.x,
+                    mouseModel.y,
+                    absolute=True,
+                    duration=0,
+                )
+            case MouseActions.DRAG_CANCEL:
+                if mouse.is_pressed(button="left") is True:
+                    mouse.release(button="left")
+            case MouseActions.RELEASE:
+                if mouse.is_pressed(button="left") is True:
+                    mouse.release(button="left")
+                if mouse.is_pressed(button="right") is True:
+                    mouse.release(button="right")
             case _:
                 pass

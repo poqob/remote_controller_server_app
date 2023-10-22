@@ -22,7 +22,7 @@ class Model:
 
 data = {
     "INPUT_TYPE": 0,
-    "BODY": {"MMode": 0, "X": 100, "Y": 100, "ACTION": 1},
+    "BODY": {"mMode": 0, "X": 100, "Y": 100, "ACTION": 1},
 }
 
 if __name__ == "__main__":
