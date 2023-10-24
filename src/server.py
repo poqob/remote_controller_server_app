@@ -4,11 +4,14 @@ from model.Action import Action
 
 
 class UDPServer:
+    action: Action = None
+
     def __init__(self, address, port, buffer_size):
         self.address = address
         self.port = port
         self.buffer_size = buffer_size
         self.udp_socket = None
+        self.action = Action()
 
     def start_server(self):
         self.udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -19,14 +22,13 @@ class UDPServer:
             try:
                 # action
                 data, sender_address = self.udp_socket.recvfrom(self.buffer_size)
-                print(
-                    f"Received data from {sender_address[0]}: ",
-                    data.decode("utf-8"),
-                )
+                # print(
+                #    f"Received data from {sender_address[0]}: ",
+                #    data.decode("utf-8"),
+                # )
 
                 model = Model().jsonToModel(data.decode("utf-8"))
-                Action()._behaviour(model)
-
+                self.action._behaviour(model=model)
             except OSError as e:
                 # Handle the OSError if needed
                 # print("Error occurred:", e)
