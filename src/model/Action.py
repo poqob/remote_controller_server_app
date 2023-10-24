@@ -4,10 +4,14 @@ from model.Mouse.MouseController import MouseController
 
 
 class Action:
-    @staticmethod
-    def _behaviour(model: Model):
+    mouseController = None
+
+    def __init__(self) -> None:
+        self.mouseController = MouseController()
+
+    def _behaviour(self, model: Model):
         if model.inputType.value == 0:
             m = MouseModel(model.body)
-            MouseController.controllMouse(m)
+            self.mouseController.handle(m)
         elif model.inputType.value == 1:
             pass
