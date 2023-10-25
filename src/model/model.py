@@ -4,6 +4,22 @@ from model.Mouse.MouseModel import MouseModel
 
 
 class Model:
+    """
+    A class representing a model that can be converted from a JSON string.
+
+    Attributes:
+    -----------
+    inputType : InputType
+        The type of input for the model.
+    body : map
+        The body of the model.
+
+    Methods:
+    --------
+    jsonToModel(json_string: str) -> Model
+        Converts a JSON string to a Model object.
+    """
+
     # fields
     inputType: InputType = None
     body: map = None
@@ -12,29 +28,22 @@ class Model:
     def __init__(self) -> None:
         pass
 
-    def jsonToModel(self, json_string):
+    def jsonToModel(self, json_string: str) -> "Model":
+        """
+        Converts a JSON string to a Model object.
+
+        Parameters:
+        -----------
+        json_string : str
+            The JSON string to convert.
+
+        Returns:
+        --------
+        Model
+            The Model object created from the JSON string.
+        """
         _json_string = json.loads(json_string)
         temp = _json_string["INPUT_TYPE"]
         self.inputType = InputType(int(temp))
         self.body = _json_string["BODY"]
         return self
-
-
-data = {
-    "INPUT_TYPE": 0,
-    "BODY": {"mMode": 0, "X": 100, "Y": 100, "ACTION": 1},
-}
-
-if __name__ == "__main__":
-    model = Model()
-    json_data = json.dumps(data)  # Convert the Python dictionary to a JSON string
-    model.jsonToModel(json_data)  # Deserialize the JSON content into the Model class
-    content = None
-    if model.inputType.value == 0:
-        content = MouseModel(model.body)
-    elif model.inputType.value == 1:
-        # content = KeyboardModel(model.body)
-        pass
-    else:
-        TypeError()
-    print(content.__str__())

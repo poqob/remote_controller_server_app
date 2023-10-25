@@ -1,7 +1,14 @@
 from enum import Enum
 
 
+from enum import Enum
+
+
 class MouseActions(Enum):
+    """
+    An enumeration of possible mouse actions that can be performed by the remote controller.
+    """
+
     LEFT_CLICK = 0
     RIGHT_CLICK = 1
     DOUBLE_CLICK_LEFT = 2
